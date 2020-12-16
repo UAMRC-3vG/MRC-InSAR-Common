@@ -61,7 +61,7 @@ def readBin(fileName, width, dataType, crop=None):
         fileName (str): Path of the file
         width (int): Width of the data
         dataType (string): 'floatComplex' | 'shortComplex' | 'float'
-        crop List[int]: Crop information [crop_row, crop_col, crop_row, crop_height, crop_width] 
+        crop List[int]: Crop information [crop_row, crop_col, crop_height, crop_width] 
 
     Returns:
         A numpy array of the data
