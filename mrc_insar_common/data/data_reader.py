@@ -83,9 +83,9 @@ def readBin(fileName, width, dataType, crop=None):
 
     """
     data_format = '>f4'
-    numpy_data_format = np.float32
+    numpy_data_format = np.float
     unit_size = 4
-    mid_numpy_data_format = np.float32
+    mid_numpy_data_format = np.float
 
     if (dataType == 'floatComplex'):
         data_format = '>c8'
@@ -97,7 +97,7 @@ def readBin(fileName, width, dataType, crop=None):
         unit_size = 4
     elif (dataType == 'float'):
         data_format = '>f4'
-        numpy_data_format = np.float32
+        numpy_data_format = np.float
         unit_size = 4
 
     if (unit_size > 4):
@@ -115,8 +115,11 @@ def readBin(fileName, width, dataType, crop=None):
 
     with open(fileName, "rb") as fin:
         for row_idx in range(crop_height):
-            fin.seek(unit_size * (width * (crop_row + row_idx)) + crop_col)
-            ret[row_idx] = np.frombuffer(fin.read(unit_size * crop_width), dtype=data_format).astype(mid_numpy_data_format).view(numpy_data_format)
+            fin.seek(unit_size * (width * (crop_row + row_idx)+ crop_col))
+            data = np.frombuffer(fin.read(unit_size * crop_width), dtype=data_format).astype(mid_numpy_data_format)
+            if (dataType == 'shortComplex'):
+                data = data.view(numpy_data_format)
+            ret[row_idx] = data
     return ret
 
 
