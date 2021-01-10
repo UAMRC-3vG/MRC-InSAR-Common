@@ -122,6 +122,40 @@ def readBin(fileName, width, dataType, crop=None):
             ret[row_idx] = data
     return ret
 
+def writeBin(fileName, data, dataType, crop=None):
+    """writeBin.
+
+    Args:
+        fileName (str): Path of the output file
+        data (numpy array): Data in numpy
+        dataType (string): 'floatComplex' | 'shortComplex' | 'float'
+
+    Returns:
+    
+    Example::
+
+        Write RSLC in shortcomplex
+        
+        >>> full_rslc = readBin('example.rslc', width = 1000, dataType='shortComplex')
+        >>> writeBin('example.out.bin', dataType='shortComplex')
+
+        Read coherence in float
+        >>> full_coh = readBin('example.filt.coh', width = 1000, dataType='float')
+        >>> writeBin('example.filt.coh.out.bin', dataType='float')
+
+        Read a crop of interferogram in floatComplex
+        >>> crop_filt = readBin('example.filt', width = 1000, dataType='floatComplex', crop=[100,200,300,300])
+        >>> writeBin('example.filt.out.bin', dataType='floatComplex')
+
+    """
+    if (dataType == 'floatComplex'):
+        writeFloatComplex(fileName, data)
+    elif (dataType == 'shortComplex'):
+        writeShortComplex(fileName, data)
+    elif (dataType == 'float'):
+        writeFloat(fileName, data)
+    else:
+        raise 'dataType {}, not supported'.format(dataType)
 
 def writeShortComplex(fileName, data):
     """Write numpy data into file '>i2' format
