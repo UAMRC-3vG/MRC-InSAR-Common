@@ -12,5 +12,5 @@ def wrap(phase):
     Args:
         phase:
     """
-    return np.angle(1j*phase)
+    return np.angle(np.exp(1j*phase))
 
