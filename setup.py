@@ -11,7 +11,7 @@ setup(
     version = __version__,
     author = 'Xinyao(Alvin) Sun',
     author_email = 'xinyao1@ualberta.ca',
-    packages = ['mrc_insar_common', 'mrc_insar_common.data', 'mrc_insar_common.util'],
+    packages = ['mrc_insar_common', 'mrc_insar_common.data', 'mrc_insar_common.util', 'mrc_insar_common.util.pt'],
     install_requires = [
         'numpy'
     ],

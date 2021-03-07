@@ -17,8 +17,6 @@
 
 import numpy as np
 import os
-
-
 def readShortComplex(fileName, width=1):
     """Read binary data which in shortComplex '>i2' format
 
@@ -181,7 +179,6 @@ def writeFloatComplex(fileName, data):
     out_file = open(fileName, 'wb')
     data.astype('>c8').tofile(out_file)
     out_file.close()
-
 
 def writeFloat(fileName, data):
     """writeFloat.
