@@ -1,6 +1,12 @@
-import torch
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+# File  : init.py
+# Author: Alvin(Xinyao) Sun <xinyao1@ualberta.ca>
+
+import numpy as np
 import torch.nn as nn
 import torch.nn.init as init
+
 
 def weight_init(m):
     """
@@ -68,3 +74,11 @@ def weight_init(m):
                 init.orthogonal_(param.data)
             else:
                 init.normal_(param.data)
+
+
+def worker_init_fn(worker_id):
+    """PyTorch Dataloader worker init function for setting different seed to each worker process
+    Args:
+            worker_id: the id of current worker process
+    """
+    np.random.seed(np.random.get_state()[1][0] + worker_id)

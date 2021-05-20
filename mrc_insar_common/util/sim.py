@@ -5,6 +5,7 @@
 # Date  : 25.02.2021
 
 import numpy as np
+
 from .utils import wrap
 
 
@@ -33,5 +34,5 @@ def gen_sim_3d(mr,
     conv2 = np.random.rand() * (conv2_scale) + conv2_shift
     unwrap_recon_phase = conv1 * ddays * (np.expand_dims(
         mr, -1)) + conv2 * bperps * (np.expand_dims(he, -1)
-                                    )  # shape: [H, W, stack_length]
+                                     )  # shape: [H, W, stack_length]
     return unwrap_recon_phase, ddays, bperps, conv1, conv2

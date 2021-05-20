@@ -6,11 +6,11 @@
 
 import numpy as np
 
+
 def wrap(phase):
     """wrap.
     Return wrapped phase value
     Args:
         phase:
     """
-    return np.angle(np.exp(1j*phase))
-
+    return np.angle(np.exp(1j * phase))

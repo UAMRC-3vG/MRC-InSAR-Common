@@ -15,8 +15,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import numpy as np
 import os
+
+import numpy as np
+
+
 def readShortComplex(fileName, width=1):
     """Read binary data which in shortComplex '>i2' format
 
@@ -29,7 +32,9 @@ def readShortComplex(fileName, width=1):
         >>> rslc = np.readShortComplex('sample.rslc', width=1)
 
     """
-    return np.fromfile(fileName, '>i2').astype(np.float).view(np.complex).reshape(-1, width)
+    return np.fromfile(fileName,
+                       '>i2').astype(np.float).view(np.complex).reshape(
+                           -1, width)
 
 
 def readFloatComplex(fileName, width=1):
@@ -59,15 +64,15 @@ def readBin(fileName, width, dataType, crop=None):
         fileName (str): Path of the file
         width (int): Width of the data
         dataType (string): 'floatComplex' | 'shortComplex' | 'float'
-        crop List[int]: Crop information [crop_row, crop_col, crop_height, crop_width] 
+        crop List[int]: Crop information [crop_row, crop_col, crop_height, crop_width]
 
     Returns:
         A numpy array of the data
-    
+
     Example::
 
         Read RSLC in shortcomplex
-        
+
         >>> full_rslc = readBin('example.rslc', width = 1000, dataType='shortComplex')
         >>> amp = np.abs(full_rslc)
 
@@ -111,14 +116,17 @@ def readBin(fileName, width, dataType, crop=None):
 
     ret = np.zeros([crop_height, crop_width], dtype=numpy_data_format)
 
-    with open(fileName, "rb") as fin:
+    with open(fileName, 'rb') as fin:
         for row_idx in range(crop_height):
-            fin.seek(unit_size * (width * (crop_row + row_idx)+ crop_col))
-            data = np.frombuffer(fin.read(unit_size * crop_width), dtype=data_format).astype(mid_numpy_data_format)
+            fin.seek(unit_size * (width * (crop_row + row_idx) + crop_col))
+            data = np.frombuffer(
+                fin.read(unit_size * crop_width),
+                dtype=data_format).astype(mid_numpy_data_format)
             if (dataType == 'shortComplex'):
                 data = data.view(numpy_data_format)
             ret[row_idx] = data
     return ret
+
 
 def writeBin(fileName, data, dataType, crop=None):
     """writeBin.
@@ -129,11 +137,11 @@ def writeBin(fileName, data, dataType, crop=None):
         dataType (string): 'floatComplex' | 'shortComplex' | 'float'
 
     Returns:
-    
+
     Example::
 
         Write RSLC in shortcomplex
-        
+
         >>> full_rslc = readBin('example.rslc', width = 1000, dataType='shortComplex')
         >>> writeBin('example.out.bin', dataType='shortComplex')
 
@@ -154,6 +162,7 @@ def writeBin(fileName, data, dataType, crop=None):
         writeFloat(fileName, data)
     else:
         raise 'dataType {}, not supported'.format(dataType)
+
 
 def writeShortComplex(fileName, data):
     """Write numpy data into file '>i2' format
@@ -179,6 +188,7 @@ def writeFloatComplex(fileName, data):
     out_file = open(fileName, 'wb')
     data.astype('>c8').tofile(out_file)
     out_file.close()
+
 
 def writeFloat(fileName, data):
     """writeFloat.
